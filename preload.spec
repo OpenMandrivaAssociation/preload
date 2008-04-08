@@ -3,7 +3,7 @@ Version: 0.4
 Release: %mkrel 1
 Summary: Adaptive readahead daemon
 License: GPLv2+
-Group: System/Applications
+Group: System/Base
 URL: http://preload.sourceforge.net
 Source0: http://downloads.sourceforge.net/%{name}/%{name}-%{version}.tar.gz
 BuildRoot: %{_tmppath}/%{name}-%{version}
