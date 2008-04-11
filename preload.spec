@@ -20,6 +20,7 @@ Patch5: preload.prophet.c.patch
 Patch6: preload.readahead.c.patch
 Patch7: preload.readahead.h.patch
 Patch8: preload.state.c.patch
+Patch9: preload-use-ionice.patch
 
 %description
 preload is an adaptive readahead daemon that prefetches files mapped by
@@ -39,6 +40,7 @@ across runs of preload.
 %patch6 -p1
 %patch7 -p1
 %patch8 -p1
+%patch9 -p1 -b .use-ionice
 
 %build
 # needed for correct localstatedir location 
