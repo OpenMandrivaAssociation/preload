@@ -6,7 +6,7 @@ License:	GPLv2+
 Group:		System/Base
 URL:		http://preload.sourceforge.net
 Source0:	http://downloads.sourceforge.net/%{name}/%{name}-%{version}.tar.gz
-BuildRequires:	libglib-devel
+BuildRequires:	glib2-devel
 BuildRequires:	help2man
 Requires:	logrotate
 # patches from fedora package
