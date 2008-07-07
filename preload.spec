@@ -1,26 +1,26 @@
-Name: preload
-Version: 0.4
-Release: %mkrel 1
-Summary: Adaptive readahead daemon
-License: GPLv2+
-Group: System/Base
-URL: http://preload.sourceforge.net
-Source0: http://downloads.sourceforge.net/%{name}/%{name}-%{version}.tar.gz
-BuildRoot: %{_tmppath}/%{name}-%{version}
-BuildRequires: libglib-devel
-BuildRequires: help2man
-Requires: logrotate
+Summary:	Adaptive readahead daemon
+Name:		preload
+Version:	0.4
+Release:	%mkrel 1
+License:	GPLv2+
+Group:		System/Base
+URL:		http://preload.sourceforge.net
+Source0:	http://downloads.sourceforge.net/%{name}/%{name}-%{version}.tar.gz
+BuildRequires:	libglib-devel
+BuildRequires:	help2man
+Requires:	logrotate
 # patches from fedora package
-Patch0: preload.init.in.patch
-Patch1: preload.logrotate.in.patch
-Patch2: preload.cmdline.c.patch
-Patch3: preload.conf.in.patch
-Patch4: preload.proc.c.patch
-Patch5: preload.prophet.c.patch
-Patch6: preload.readahead.c.patch
-Patch7: preload.readahead.h.patch
-Patch8: preload.state.c.patch
-Patch9: preload-use-ionice.patch
+Patch0:		preload.init.in.patch
+Patch1:		preload.logrotate.in.patch
+Patch2:		preload.cmdline.c.patch
+Patch3:		preload.conf.in.patch
+Patch4:		preload.proc.c.patch
+Patch5:		preload.prophet.c.patch
+Patch6:		preload.readahead.c.patch
+Patch7:		preload.readahead.h.patch
+Patch8:		preload.state.c.patch
+Patch9:		preload-use-ionice.patch
+BuildRoot:	%{_tmppath}/%{name}-%{version}-buildroot
 
 %description
 preload is an adaptive readahead daemon that prefetches files mapped by
@@ -45,12 +45,12 @@ across runs of preload.
 %build
 # needed for correct localstatedir location 
 %define _localstatedir %{_var}
-%configure
+%configure2_5x
 %make
 
 %install
 rm -rf %{buildroot}
-%makeinstall
+%makeinstall_std
 
 # already as %%doc
 rm -f %{buildroot}/%{_docdir}/preload-%{version}/index.txt
@@ -67,7 +67,7 @@ rm -rf %{buildroot}
 
 %files
 %defattr(-,root,root, -)
-%doc README AUTHORS COPYING ChangeLog TODO THANKS NEWS
+%doc README AUTHORS ChangeLog TODO THANKS NEWS
 %doc doc/index.txt doc/proposal.txt
 %{_sbindir}/preload
 %{_datadir}/man/man8/preload.8*
@@ -78,4 +78,3 @@ rm -rf %{buildroot}
 %attr(0644,root,root) %ghost %config(missingok,noreplace) %{_localstatedir}/log/preload.log
 %attr(0644,root,root) %ghost %config(missingok,noreplace) %{_localstatedir}/lib/preload/preload.state
 %attr(0755,root,root) %dir %{_localstatedir}/lib/preload
-
