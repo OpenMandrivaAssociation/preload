@@ -46,7 +46,7 @@ across runs of preload.
 # needed for correct localstatedir location 
 %define _localstatedir %{_var}
 %configure2_5x
-%make
+%make -j1
 
 %install
 rm -rf %{buildroot}
