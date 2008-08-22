@@ -9,17 +9,7 @@ Source0:	http://downloads.sourceforge.net/%{name}/%{name}-%{version}.tar.gz
 BuildRequires:	glib2-devel
 BuildRequires:	help2man
 Requires:	logrotate
-# patches from fedora package
-Patch0:		preload.init.in.patch
-Patch1:		preload.logrotate.in.patch
-Patch2:		preload.cmdline.c.patch
-Patch3:		preload.conf.in.patch
-Patch4:		preload.proc.c.patch
-Patch5:		preload.prophet.c.patch
-Patch6:		preload.readahead.c.patch
-Patch7:		preload.readahead.h.patch
-Patch8:		preload.state.c.patch
-Patch9:		preload-use-ionice.patch
+Patch10:	%{name}-0.6.3-start-as-last.patch
 BuildRoot:	%{_tmppath}/%{name}-%{version}-buildroot
 
 %description
@@ -31,20 +21,9 @@ across runs of preload.
 
 %prep
 %setup -q
-%patch0 -p1
-%patch1 -p1
-%patch2 -p1
-%patch3 -p1
-%patch4 -p1
-%patch5 -p1
-%patch6 -p1
-%patch7 -p1
-%patch8 -p1
-%patch9 -p1 -b .use-ionice
+%patch10 -p1
 
 %build
-# needed for correct localstatedir location 
-%define _localstatedir %{_var}
 %configure2_5x
 %make -j1
 
@@ -66,7 +45,7 @@ rm -rf %{buildroot}
 %_preun_service preload
 
 %files
-%defattr(-,root,root, -)
+%defattr(-,root,root)
 %doc README AUTHORS ChangeLog TODO THANKS NEWS
 %doc doc/index.txt doc/proposal.txt
 %{_sbindir}/preload
@@ -75,6 +54,6 @@ rm -rf %{buildroot}
 %config(noreplace) %{_sysconfdir}/preload.conf
 %config(noreplace) %{_sysconfdir}/sysconfig/preload
 %config(noreplace) %{_sysconfdir}/logrotate.d/preload
-%attr(0644,root,root) %ghost %config(missingok,noreplace) %{_localstatedir}/log/preload.log
-%attr(0644,root,root) %ghost %config(missingok,noreplace) %{_localstatedir}/lib/preload/preload.state
-%attr(0755,root,root) %dir %{_localstatedir}/lib/preload
+%attr(0644,root,root) %ghost %config(missingok,noreplace) %{_var}/log/preload.log
+%attr(0644,root,root) %ghost %config(missingok,noreplace) %{_var}/lib/preload/preload.state
+%attr(0755,root,root) %dir %{_var}/lib/preload
