@@ -1,15 +1,16 @@
 Summary:	Adaptive readahead daemon
 Name:		preload
 Version:	0.6.3
-Release:	%mkrel 1
+Release:	%mkrel 2
 License:	GPLv2+
 Group:		System/Base
 URL:		http://preload.sourceforge.net
 Source0:	http://downloads.sourceforge.net/%{name}/%{name}-%{version}.tar.gz
+# (fc) 0.6.3-2mdv start after dm and only in graphical login
+Patch0:		preload-0.6.3-prcsys.patch
 BuildRequires:	glib2-devel
 BuildRequires:	help2man
 Requires:	logrotate
-Patch10:	%{name}-0.6.3-start-as-last.patch
 BuildRoot:	%{_tmppath}/%{name}-%{version}-buildroot
 
 %description
@@ -21,7 +22,7 @@ across runs of preload.
 
 %prep
 %setup -q
-%patch10 -p1
+%patch0 -p1 -b .prcsys
 
 %build
 %configure2_5x
