@@ -1,14 +1,22 @@
 Summary:	Adaptive readahead daemon
 Name:		preload
 Version:	0.6.3
-Release:	%mkrel 3
+Release:	%mkrel 4
 License:	GPLv2+
 Group:		System/Base
 URL:		http://preload.sourceforge.net
 Source0:	http://downloads.sourceforge.net/%{name}/%{name}-%{version}.tar.gz
 # (fc) 0.6.3-2mdv start after dm and only in graphical login
 Patch0:		preload-0.6.3-prcsys.patch
-BuildRequires:	glib2-devel
+# (fc) 0.6.3-4mdv fix crash in --nice (SVN)
+Patch1:		preload-0.6.3-nice.patch
+# (fc) 0.6.3-4mdv clarify default config (SVN)
+Patch2:		preload-0.6.3-fixconfig.patch
+# (fc) 0.6.3-4mdv use glib 2.14 features (SVN)
+Patch3:		preload-0.6.3-glib214.patch
+# (fc) 0.6.3-4mdv fix default umask (SVN)
+Patch4:		preload-0.6.3-umask.patch
+BuildRequires:	glib2-devel >= 2.14
 BuildRequires:	help2man
 Requires:	logrotate
 BuildRoot:	%{_tmppath}/%{name}-%{version}-buildroot
@@ -23,10 +31,18 @@ across runs of preload.
 %prep
 %setup -q
 %patch0 -p1 -b .prcsys
+%patch1 -p1 -b .nice
+%patch2 -p1 -b .fixconfig
+%patch3 -p1 -b .glib214
+%patch4 -p1 -b .umask
+
+#needed by patch3
+autoreconf
 
 %build
 %configure2_5x
-%make -j1
+#parallel build is broken
+make
 
 %install
 rm -rf %{buildroot}
