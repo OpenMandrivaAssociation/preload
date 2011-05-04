@@ -1,7 +1,7 @@
 Summary:	Adaptive readahead daemon
 Name:		preload
 Version:	0.6.4
-Release:	%mkrel 3
+Release:	%mkrel 4
 License:	GPLv2+
 Group:		System/Base
 URL:		http://preload.sourceforge.net
