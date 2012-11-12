@@ -1,0 +1,31 @@
+diff -p -up preload-0.6.3/preload.init.in.prcsys preload-0.6.3/preload.init.in
+--- preload-0.6.3/preload.init.in.prcsys	2008-07-24 20:04:31.000000000 +0200
++++ preload-0.6.3/preload.init.in	2008-09-26 19:01:30.000000000 +0200
+@@ -4,7 +4,7 @@
+ #
+ # Starts the @PACKAGE@ daemon
+ #
+-# chkconfig: 2345 05 95
++# chkconfig: 5 05 95
+ # description: @PACKAGE_SUMMARY@
+ # processname: @PACKAGE@
+ #
+@@ -12,7 +12,8 @@
+ # Provides:          preload.sourceforge.net
+ # Required-Start:    $local_fs $remote_fs $time
+ # Required-Stop:     $local_fs $remote_fs $time
+-# Default-Start:     2 3 4 5
++# Should-Start:      dm
++# Default-Start:     5
+ # Default-Stop:      0 1 6
+ # Short-Description: @PACKAGE_SUMMARY@
+ # Description:       Analyzes what applications users run and tries to predict
+@@ -24,6 +25,8 @@
+ # Source function library.
+ . /etc/rc.d/init.d/functions
+ 
++[ -f /dev/.readahead_collect ] && exit 0
++
+ [ -x @sbindir@/@PACKAGE@ ] || exit 0
+ 
+ if [ -f @sysconfigdir@/@PACKAGE@ ]; then
