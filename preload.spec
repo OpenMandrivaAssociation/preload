@@ -1,17 +1,16 @@
 Summary:	Adaptive readahead daemon
 Name:		preload
 Version:	0.6.4
-Release:	%mkrel 6
+Release:	7
 License:	GPLv2+
 Group:		System/Base
 URL:		http://preload.sourceforge.net
 Source0:	http://downloads.sourceforge.net/%{name}/%{name}-%{version}.tar.gz
 # (fc) 0.6.3-2mdv start after dm and only in graphical login
 Patch0:		preload-0.6.3-prcsys.patch
-BuildRequires:	glib2-devel >= 2.14
+BuildRequires:	pkgconfig(glib-2.0)
 BuildRequires:	help2man
 Requires:	logrotate
-BuildRoot:	%{_tmppath}/%{name}-%{version}-buildroot
 
 %description
 preload is an adaptive readahead daemon that prefetches files mapped by
@@ -31,15 +30,11 @@ across runs of preload.
 %make -j1
 
 %install
-rm -rf %{buildroot}
 %makeinstall_std
 
 # already as %%doc
 rm -f %{buildroot}/%{_docdir}/preload-%{version}/index.txt
 rm -f %{buildroot}/%{_docdir}/preload-%{version}/proposal.txt
-
-%clean
-rm -rf %{buildroot}
 
 %post
 %_post_service preload
@@ -48,7 +43,6 @@ rm -rf %{buildroot}
 %_preun_service preload
 
 %files
-%defattr(-,root,root)
 %doc README AUTHORS ChangeLog TODO THANKS NEWS
 %doc doc/index.txt doc/proposal.txt
 %{_sbindir}/preload
