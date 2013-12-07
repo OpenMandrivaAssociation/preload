@@ -1,7 +1,7 @@
 Summary:	Adaptive readahead daemon
 Name:		preload
 Version:	0.6.4
-Release:	10
+Release:	11
 License:	GPLv2+
 Group:		System/Base
 Url:		http://preload.sourceforge.net
