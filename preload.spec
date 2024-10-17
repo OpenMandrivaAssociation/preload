@@ -4,7 +4,7 @@ Version:	0.6.4
 Release:	18
 License:	GPLv2+
 Group:		System/Base
-Url:		http://preload.sourceforge.net
+Url:		https://preload.sourceforge.net
 Source0:	http://downloads.sourceforge.net/%{name}/%{name}-%{version}.tar.gz
 # (fc) 0.6.3-2mdv start after dm and only in graphical login
 Patch0:		preload-0.6.3-prcsys.patch
